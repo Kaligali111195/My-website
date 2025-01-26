@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Order Confirmed!</h1>
+  </header>
+
+  <div id="order-details">
+    <h2>Your Order:</h2>
+    <div id="order-list"></div>
+    <h3>Total: $<span id="order-total">0</span></h3>
+  </div>
+
+  <nav>
+    <a href="index.html">Back to Menu</a>
+  </nav>
+
+  <script>
+    // Load order confirmation details
+    function loadOrderConfirmation() {
+      let order = JSON.parse(localStorage.getItem('order')) || [];
+      let orderList = document.getElementById('order-list');
+      let totalPrice = 0;
+
+      order.forEach(item => {
+        orderList.innerHTML += `<p>${item.name} - $${item.price}</p>`;
+        totalPrice += item.price;
+      });
+
+      document.getElementById('order-total').innerText = totalPrice.toFixed(2);
+    }
+
+    window.onload = loadOrderConfirmation;
+  </script>
+</body>
+</html>
